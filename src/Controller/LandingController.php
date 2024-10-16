@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 class LandingController extends AbstractController {
     #[Route('/', name: 'Landing Page')]
     public function index(): Response {
-        return $this->render('landing/index.html.twig', [
+        return $this->render('index.html.twig', [
             'controller_name' => 'LandingController',
         ]);
 

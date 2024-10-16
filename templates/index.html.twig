@@ -2,7 +2,14 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>Lovely landing page!</h1>
 
-    {% block page_contents %}{% endblock %}
+
+    {% block page_contents %}
+
+        {% block body %}
+
+        <h1>Lovely landing page!</h1>
+
+        {% endblock %}
+    {% endblock %}
 {% endblock %}

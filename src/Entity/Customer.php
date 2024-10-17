@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\BookRepository;
+use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: BookRepository::class)]
+#[ORM\Entity(repositoryClass: CustomerRepository::class)]
 #[ApiResource]
-class Book
+class Customer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,19 +18,15 @@ class Book
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
-    #[ORM\ManyToOne(inversedBy: 'books')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Author $author = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $isbn = null;
+    private ?string $address = null;
 
     /**
      * @var Collection<int, Loan>
      */
-    #[ORM\OneToMany(targetEntity: Loan::class, mappedBy: 'book')]
+    #[ORM\OneToMany(targetEntity: Loan::class, mappedBy: 'customer')]
     private Collection $loans;
 
     public function __construct()
@@ -43,38 +39,26 @@ class Book
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): static
+    public function setName(string $name): static
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getAuthor(): ?Author
+    public function getAddress(): ?string
     {
-        return $this->author;
+        return $this->address;
     }
 
-    public function setAuthor(?Author $author): static
+    public function setAddress(string $address): static
     {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getIsbn(): ?string
-    {
-        return $this->isbn;
-    }
-
-    public function setIsbn(string $isbn): static
-    {
-        $this->isbn = $isbn;
+        $this->address = $address;
 
         return $this;
     }
@@ -91,7 +75,7 @@ class Book
     {
         if (!$this->loans->contains($loan)) {
             $this->loans->add($loan);
-            $loan->setBook($this);
+            $loan->setCustomer($this);
         }
 
         return $this;
@@ -101,8 +85,8 @@ class Book
     {
         if ($this->loans->removeElement($loan)) {
             // set the owning side to null (unless already changed)
-            if ($loan->getBook() === $this) {
-                $loan->setBook(null);
+            if ($loan->getCustomer() === $this) {
+                $loan->setCustomer(null);
             }
         }
 

@@ -1,0 +1,11 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %}De auteurs in onze bibliotheek{% endblock %}
+
+{% block body %} <h1>Onze auteurs:</h1>
+    <ul>
+        {% for a in authors %}
+            <li>{{ a.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

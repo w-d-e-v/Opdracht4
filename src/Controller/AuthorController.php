@@ -23,11 +23,11 @@ class AuthorController extends AbstractController
     #[Route('/author/create', name: 'app_author_create')]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
-
-        $request->getQueryString('name');
+        //haal de waarde 'name' an het webformulier uit de post
+        $name = $request->request->get('name');
 
         $author = new Author();
-        $author->setName('$name');
+        $author->setName($name); //geen dubbele quotes gebruiken rond een variabele 🤡
 
         $em->persist($author);
         $em->flush();

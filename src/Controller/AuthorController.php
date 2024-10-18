@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,18 +21,19 @@ class AuthorController extends AbstractController
     }
 
     #[Route('/author/create', name: 'app_author_create')]
-    public function create(EntityManagerInterface $em): Response
+    public function create(Request $request, EntityManagerInterface $em): Response
     {
 
+        $request->getQueryString('name');
+
         $author = new Author();
-        $author->setName('Multatuli');
+        $author->setName('$name');
 
         $em->persist($author);
         $em->flush();
 
-        return $this->render('author/index.html.twig', [
-            'controller_name' => 'AuthorController',
-        ]);
+        return new Response("Author " . $author->getName() . " is aangemaakt");
+
     }
 
 }

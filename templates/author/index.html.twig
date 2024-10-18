@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AuthorController!{% endblock %}
+{% block title %}Authors{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hier vindt je alles over schrijvers</h1>
+    <p>Voeg hier een Auteur toe</p>
+    <form method="post" action="/author/create">
+        <label for="name">Naam:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+        <button class="btn btn-primary">Voeg toe!</button>
+    </form>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/wessel/WEB2/Opdracht4/src/Controller/AuthorController.php</code></li>
-        <li>Your template at <code>/Users/wessel/WEB2/Opdracht4/templates/author/index.html.twig</code></li>
-    </ul>
+
 </div>
 {% endblock %}

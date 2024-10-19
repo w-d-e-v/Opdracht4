@@ -10,9 +10,18 @@
 
     <div class="example-wrapper">
     <h1>Hier staan al onze boeken:</h1>
-    <ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Titel</th>
+                <th scope="col">ISBN</th>
+            </tr>
+        </thead>
         {% for b in books %}
-            <li>{{ b.title }} met ISBN {{ b.isbn }}</li>
+            <tr>
+                <td> {{ b.title }} </td>
+                <td> {{ b.isbn }} </td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 {% endblock %}

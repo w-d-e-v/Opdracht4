@@ -13,6 +13,9 @@
     <ul>
         {% for a in authors %}
             <li>{{ a.name }}</li>
+            <form method="post" action="/author/delete/{{ a.id }}">
+                <button type="submit" class="btn btn-danger btn-sm">Verwijder</button>
+            </form>
         {% endfor %}
     </ul>
 {% endblock %}

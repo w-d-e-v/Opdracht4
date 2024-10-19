@@ -44,4 +44,15 @@ class AuthorController extends AbstractController
         ]);
     }
 
+    #[Route('/author/delete/{id}', name: 'app_author_delete')]
+    public function delete(Author $author, EntityManagerInterface $em): Response {
+
+        $author = $em->getRepository(Author::class)->find($author->getId());
+
+        $em->remove($author);
+        $em->flush();
+        return new Response("Author " . $author->getName() . " is verwijderd");
+
+    }
+
 }

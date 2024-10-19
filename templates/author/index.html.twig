@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Authors{% endblock %}
+{% block title %}Auteurs{% endblock %}
 
 {% block body %}
 <style>
@@ -9,8 +9,8 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hier vindt je alles over schrijvers</h1>
-    <p>Voeg hier een Auteur toe</p>
+    <h1>Voeg hier een Auteur toe:</h1>
+
     <form method="post" action="/author/create">
         <label for="name">Naam:</label><br>
         <input type="text" id="name" name="name"><br><br>

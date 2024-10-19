@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Authors{% endblock %}
+{% block title %}Books{% endblock %}
 
 {% block body %}
     <style>
@@ -9,10 +9,10 @@
     </style>
 
     <div class="example-wrapper">
-    <h1>Hier staan al onze schrijvers:</h1>
+    <h1>Hier staan al onze boeken:</h1>
     <ul>
-        {% for a in authors %}
-            <li>{{ a.name }}</li>
+        {% for b in books %}
+            <li>{{ b.name }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

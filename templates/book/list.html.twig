@@ -14,12 +14,14 @@
         <thead>
             <tr>
                 <th scope="col">Titel</th>
+                <th scope="col">Auteur</th>
                 <th scope="col">ISBN</th>
             </tr>
         </thead>
         {% for b in books %}
             <tr>
                 <td> {{ b.title }} </td>
+                <td> {{ b.author.name }}</td>
                 <td> {{ b.isbn }} </td>
             </tr>
         {% endfor %}

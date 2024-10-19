@@ -12,20 +12,17 @@
         <h1>Voeg hier een Boek toe:</h1>
 
         <form method="post" action="/book/create">
-
-            <div class="dropdown">
-                <label for="author">Auteur:</label><br>
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Selecteer Auteur
-                </button>
-                <ul class="dropdown-menu">
+            <label for="author">Auteur:</label><br>
+           <select name="author" id="author">
 
                     {% for a in authors %}
-                        <li value="{{ a.id }}">{{ a.name }}</li>
+
+                        <option value="{{ a.id }}">{{ a.name }}</option>
+
                     {% endfor %}
 
-                </ul>
-            </div>
+                </select> <br><br>
+
 
             <label for="title">Titel:</label><br>
             <input type="text" id="title" name="title"><br><br>

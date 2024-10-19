@@ -12,7 +12,7 @@
     <h1>Hier staan al onze boeken:</h1>
     <ul>
         {% for b in books %}
-            <li>{{ b.title }}</li>
+            <li>{{ b.title }} met ISBN {{ b.isbn }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

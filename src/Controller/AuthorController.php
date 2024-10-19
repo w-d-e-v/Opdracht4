@@ -30,7 +30,7 @@ class AuthorController extends AbstractController
         $author->setName($name); //geen dubbele quotes gebruiken rond een variabele 🤡
 
         $em->persist($author);
-        $em->flush();
+        $em->flush();  //doorspoelen maar
 
         return new Response("Author " . $author->getName() . " is aangemaakt");
 
@@ -38,9 +38,9 @@ class AuthorController extends AbstractController
 
     #[Route('/author/list', name: 'app_author_list')]
     public function list(EntityManagerInterface $em): Response {
-        $authors = $em->getRepository(Author::class)->findAll();
+        $authors = $em->getRepository(Author::class)->findAll(); //lees alles uit
         return $this->render('author/list.html.twig', [
-            'authors' => $authors,
+            'authors' => $authors, //pass een array terug
         ]);
     }
 

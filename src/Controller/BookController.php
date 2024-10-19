@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Author;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,30 +14,36 @@ use Doctrine\ORM\EntityManager;
 class BookController extends AbstractController
 {
     #[Route('/book', name: 'app_book')]
-    public function index(): Response
+    public function index(EntityManagerInterface $em): Response
     {
+        $authors = $em->getRepository(Author::class)->findAll(); //haal alle auteurs op
         return $this->render('book/index.html.twig', [
             'controller_name' => 'BookController',
+            'authors' => $authors, //pass een array terug aan index voor de dropdown!
         ]);
     }
 
     #[Route('/book/create', name: 'app_book_create')]
     public function create(Request $request, EntityManagerInterface $em): Response
 {
-    //haal de waarden an het webformulier uit de post
-    $title = $request->request->get('title');
-    $author = $request->request->get('author');
-    $isbn = $request->request->get('isbn');
 
-    $book = new Book();
-    $book->setTitle($title); //geen dubbele quotes gebruiken rond een variabele 🤡
-    $book->setAuthor($author);
-    $book->setIsbn($isbn);
 
-    $em->persist($book);
-    $em->flush();
+        //haal de waarden an het webformulier uit de post
+        $title = $request->request->get('title');
+        $authorId = $request->request->get('author'); //haal het id op
+        $isbn = $request->request->get('isbn');
+        $author = $em->getRepository(Author::class)->find($authorId); //zet om in author_id
 
-    return new Response("Book " . $book->getTitle() . " is aangemaakt");
+
+        $book = new Book(); //maak object aan
+        $book->setTitle($title);    //vul het
+        $book->setAuthor($author);  //object met
+        $book->setIsbn($isbn);      //de relevante waarden
+
+        $em->persist($book);
+        $em->flush(); //en doorspoelen maar
+
+        return new Response("Book " . $book->getTitle() . " is aangemaakt");
 
 }
     #[Route('/book/list', name: 'app_book_list')]

@@ -20,8 +20,8 @@ class Book
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\ManyToOne(inversedBy: 'books')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Author::class, inversedBy: 'books')] //boeken moeten weg als auteur wordt verwijderd
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Author $author = null;
 
     #[ORM\Column(length: 255)]

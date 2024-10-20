@@ -23,7 +23,9 @@ class Author
     /**
      * @var Collection<int, Book>
      */
-    #[ORM\OneToMany(targetEntity: Book::class, mappedBy: 'author')]
+
+
+    #[ORM\OneToMany(targetEntity: Book::class, mappedBy: 'author', cascade: ['remove'])] //Boeken van de auteur moeten weg als de autoeur weg gaat
     private Collection $books;
 
     public function __construct()

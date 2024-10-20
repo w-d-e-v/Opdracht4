@@ -37,12 +37,44 @@ class AuthorController extends AbstractController
     }
 
     #[Route('/author/list', name: 'app_author_list')]
-    public function list(EntityManagerInterface $em): Response {
+    public function list(EntityManagerInterface $em): Response
+    {
         $authors = $em->getRepository(Author::class)->findAll(); //lees alles uit
         return $this->render('author/list.html.twig', [
             'authors' => $authors, //pass een array terug
         ]);
     }
+
+    #[Route('/author/update/{id}', name: 'app_author_update')]
+    public function update(Request $request, EntityManagerInterface $em, $id): Response
+    {
+        $author = $em->getRepository(Author::class)->find($id);
+
+
+        if ($request->isMethod('post')) { //alleen als er wat gepost is willen we Doctrine gebruiken
+
+            $name = $request->request->get('name');
+            $author->setName($name);
+
+            $em->persist($author);
+            $em->flush();
+
+            return $this->redirectToRoute('app_author_list');
+
+        } else {
+            return $this->render('author/update.html.twig', [ //als dat niet zo is moet twig een array terugkrijgen.
+                'author' => $author,
+            ]);
+        }
+
+    }
+
+
+
+
+
+
+
 
     #[Route('/author/delete/{id}', name: 'app_author_delete')]
     public function delete(Author $author, EntityManagerInterface $em): Response {

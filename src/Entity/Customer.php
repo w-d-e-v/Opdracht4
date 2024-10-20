@@ -26,7 +26,7 @@ class Customer
     /**
      * @var Collection<int, Loan>
      */
-    #[ORM\OneToMany(targetEntity: Loan::class, mappedBy: 'customer')]
+    #[ORM\OneToMany(targetEntity: Loan::class, mappedBy: 'customer', cascade: ['remove'])] //Loans van de customer moeten weg als de customer weg gaat
     private Collection $loans;
 
     public function __construct()

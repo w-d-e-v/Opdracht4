@@ -16,8 +16,8 @@ class Loan
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'loans')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'loans')] //uitleningen moeten weg als klant wordt verwijderd
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Customer $customer = null;
 
     #[ORM\ManyToOne(inversedBy: 'loans')]

@@ -54,6 +54,16 @@ class BookController extends AbstractController
         ]);
     }
 
+    #[Route('/book/delete/{id}', name: 'app_book_delete')]
+    public function delete(Book $book, EntityManagerInterface $em): Response {
+
+        $book = $em->getRepository(Book::class)->find($book->getId());
+
+        $em->remove($book);
+        $em->flush();
+        return new Response("Boek " . $book->getTitle() . " is verwijderd");
+
+    }
 
 
 }

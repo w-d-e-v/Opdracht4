@@ -30,7 +30,7 @@ class Book
     /**
      * @var Collection<int, Loan>
      */
-    #[ORM\OneToMany(targetEntity: Loan::class, mappedBy: 'book')]
+    #[ORM\OneToMany(targetEntity: Loan::class, mappedBy: 'book', cascade: ['remove'])] //Uitleningen van het boek moeten weg als het boek wordt verwijderd weg gaat
     private Collection $loans;
 
     public function __construct()

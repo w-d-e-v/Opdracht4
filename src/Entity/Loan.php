@@ -20,8 +20,8 @@ class Loan
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Customer $customer = null;
 
-    #[ORM\ManyToOne(inversedBy: 'loans')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Book::class, inversedBy: 'loans')] //uitleningen moeten verwijderd worden als het boek wordt opgeruimd
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Book $book = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

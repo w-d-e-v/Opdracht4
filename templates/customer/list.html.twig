@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Klanten{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+    <h1>Hier staan al onze klanten:</h1>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Naam</th>
+            <th scope="col">Adres</th>
+            <th scope="col">Verwijderen</th>
+        </tr>
+        </thead>
+        {% for c in customers %}
+            <tr>
+                <td>
+                    {{ c.name }}
+                </td>
+
+                <td>
+                    {{ c.address }}
+                </td>
+
+                <td>
+                    <form method="post" action="/customer/delete/{{ c.id }}">
+
+                        <button type="submit" class="btn btn-danger btn-sm">Verwijder</button>
+
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

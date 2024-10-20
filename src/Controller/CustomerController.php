@@ -36,4 +36,23 @@ class CustomerController extends AbstractController
         return new Response("Klant " . $customer->getName() . " is aangemaakt");
     }
 
+    #[Route('/customer/list', name: 'app_customer_list')]
+    public function list(EntityManagerInterface $em): Response {
+        $customers = $em->getRepository(Customer::class)->findAll(); //lees alles uit
+        return $this->render('customer/list.html.twig', [
+            'customers' => $customers, //pass een array terug
+        ]);
+    }
+
+    #[Route('/customer/delete/{id}', name: 'app_customer_delete')]
+    public function delete(Customer $customer, EntityManagerInterface $em): Response {
+
+        $customer = $em->getRepository(Customer::class)->find($customer->getId());
+
+        $em->remove($customer);
+        $em->flush();
+        return new Response("Klant " . $customer->getName() . " is verwijderd");
+
+    }
+
 }

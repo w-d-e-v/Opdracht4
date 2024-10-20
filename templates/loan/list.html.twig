@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Uitleningen{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+    <h1>Hier staan al onze uitleningen:</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Boek</th>
+            <th scope="col">Klant</th>
+            <th scope="col">Uitleenmoment</th>
+            <th scope="col">Verwijderen</th>
+        </tr>
+        </thead>
+        {% for l in loans %}
+            <tr>
+                <td> {{ l.book.title }} </td>
+                <td> {{ l.customer.name }}</td>
+                <td> {{ l.stringedDate }} </td> <!-- niet het object maar een string :) -->
+                <td>
+                    <form method="post" action="/loan/delete/{{ l.id }}">
+
+                        <button type="submit" class="btn btn-danger btn-sm">Verwijder</button>
+
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

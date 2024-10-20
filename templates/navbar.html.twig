@@ -17,7 +17,6 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/author/list">Auteurs weergeven</a></li>
                         <li><a class="dropdown-item" href="/author">Auteur maken</a></li>
-                        <li><a class="dropdown-item" href="/author/update">Auteur bijwerken</a></li>
                     </ul>
                 </li>
 
@@ -26,17 +25,29 @@
                         Boeken
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/book/list">Boek weergeven</a></li>
+                        <li><a class="dropdown-item" href="/book/list">Boeken weergeven</a></li>
                         <li><a class="dropdown-item" href="/book">Boek maken</a></li>
-                        <li><a class="dropdown-item" href="/book/update">Boek bijwerken</a></li>
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Klanten</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/customer" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Klanten
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/customer/list">Klanten weergeven</a></li>
+                        <li><a class="dropdown-item" href="/customer">Klant maken</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Uitleningen</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/loan" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Uitleningen
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/loan/list">Uitleningen weergeven</a></li>
+                        <li><a class="dropdown-item" href="/loan">Uitlening maken</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

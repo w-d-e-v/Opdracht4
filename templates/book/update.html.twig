@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Boek bewerken{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+    <h1>Boek bewerken:</h1>
+
+    <form method="post" action="/book/update/{{ book.id }}">
+
+        <label for="title" id="title">Voer nieuwe titel in:</label><br>
+        <input type="text" id="title" name="title" placeholder="{{ book.title }}"><br><br>
+
+        <label for="author" id="author">Voer nieuwe auteur in:</label><br>
+        <select name="author" id="author">
+
+            {% for a in authors %}
+
+                <option value="{{ a.id }}">{{ a.name }}</option>
+
+            {% endfor %}
+
+        </select> <br><br>
+
+        <label for="isbn" id="isbn">Voer nieuw ISBN in:</label><br>
+        <input type="text" id="isbn" name="isbn" placeholder="{{ book.isbn }}">
+
+        <button type="submit" class="btn btn-warning btn-sm">Bewerken</button>
+
+
+
+
+
+    </form>
+{% endblock %}

@@ -30,7 +30,7 @@ class BookController extends AbstractController
 
         //haal de waarden an het webformulier uit de post
         $title = $request->request->get('title');
-        $authorId = $request->request->get('author'); //haal het id op
+        $authorId = $request->request->get('author'); //haal de author op
         $isbn = $request->request->get('isbn');
         $author = $em->getRepository(Author::class)->find($authorId); //zet om in author_id
 
@@ -53,6 +53,39 @@ class BookController extends AbstractController
             'books' => $books,
         ]);
     }
+
+    #[Route('/book/update/{id}', name: 'app_book_update')]
+    public function update(Request $request, EntityManagerInterface $em, $id): Response
+    {
+        $book = $em->getRepository(Book::class)->find($id);
+        $authors = $em->getRepository(Author::class)->findAll(); //haal alle auteurs op
+
+        if ($request->isMethod('post')) { //alleen als er wat gepost is willen we Doctrine gebruiken
+
+            $title = $request->request->get('title');
+            $authorId = $request->request->get('author'); //haal de author naam op net als bij aanmaken
+            $isbn = $request->request->get('isbn');
+            $author = $em->getRepository(Author::class)->find($authorId); //Zet om in ID net als bij het aanmaken
+
+            $book->setTitle($title);
+            $book->setAuthor($author);// Lekker met ID en niet met naam
+            $book->setIsbn($isbn);
+
+            $em->persist($book);
+            $em->flush();
+
+            return $this->redirectToRoute('app_book_list');
+
+        } else {
+            return $this->render('book/update.html.twig', [ //als dat niet zo is moet twig een array terugkrijgen.
+                'book' => $book,
+                'authors' => $authors, //pass een array terug aan index voor de dropdown net als bij het aanmaken.
+            ]);
+        }
+
+    }
+
+
 
     #[Route('/book/delete/{id}', name: 'app_book_delete')]
     public function delete(Book $book, EntityManagerInterface $em): Response {

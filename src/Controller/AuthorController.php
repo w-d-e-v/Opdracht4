@@ -32,7 +32,7 @@ class AuthorController extends AbstractController
         $em->persist($author);
         $em->flush();  //doorspoelen maar
 
-        return new Response("Author " . $author->getName() . " is aangemaakt");
+        return $this->redirectToRoute('app_author_list');
 
     }
 
@@ -83,7 +83,7 @@ class AuthorController extends AbstractController
 
         $em->remove($author);
         $em->flush();
-        return new Response("Author " . $author->getName() . " is verwijderd");
+        return $this->redirectToRoute('app_author_list');
 
     }
 

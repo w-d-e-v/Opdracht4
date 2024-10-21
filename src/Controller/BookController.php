@@ -43,7 +43,7 @@ class BookController extends AbstractController
         $em->persist($book);
         $em->flush(); //en doorspoelen maar
 
-        return new Response("Book " . $book->getTitle() . " is aangemaakt");
+        return $this->redirectToRoute('app_book_list');
 
 }
     #[Route('/book/list', name: 'app_book_list')]
@@ -94,7 +94,7 @@ class BookController extends AbstractController
 
         $em->remove($book);
         $em->flush();
-        return new Response("Boek " . $book->getTitle() . " is verwijderd");
+        return $this->redirectToRoute('app_book_list');
 
     }
 

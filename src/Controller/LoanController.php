@@ -46,7 +46,7 @@ class LoanController extends AbstractController
         $em->persist($loan);
         $em->flush(); //en doorspoelen maar
 
-        return new Response("Uitlening is aangemaakt");
+        return $this->redirectToRoute('app_loan_list');
 
     }
 
@@ -63,6 +63,42 @@ class LoanController extends AbstractController
         ]);
     }
 
+    #[Route('/loan/update/{id}', name: 'app_loan_update')]
+    public function update(Request $request, EntityManagerInterface $em, $id): Response
+    {
+        $loan = $em->getRepository(Loan::class)->find($id); //pak het loan object voor initiatie
+        $books = $em->getRepository(Book::class)->findAll(); //Haal hier ALLE boeken op
+        $customers = $em->getRepository(Customer::class)->findAll(); //haal alle auteurs op
+
+        if ($request->isMethod('post')) { //alleen als er wat gepost is willen we Doctrine gebruiken
+
+            $bookId = $request->request->get('book'); //haal boektitel uit het formulier
+            $customerId = $request->request->get('customer'); //haal de customer naam op net als bij aanmaken
+
+            $book = $em->getRepository(Book::class)->find($bookId); //Zet om in ID net als bij het aanmaken
+            $customer = $em->getRepository(Customer::class)->find($customerId); //Dat doen weo ook voor de klant
+
+
+            $loan->setBook($book); //ook hier het ID gebruiken
+            $loan->setCustomer($customer);// Lekker met ID en niet met naam
+
+
+            $em->persist($loan);
+            $em->flush();
+
+            return $this->redirectToRoute('app_loan_list');
+
+        } else {
+            return $this->render('loan/update.html.twig', [ //als dat niet zo is moet twig een array terugkrijgen.
+                'loan' => $loan, //retourneer de informatie over deze uitlening in array
+                'books' => $books, //array met boeken terug naar de pagina
+                'customers' => $customers, //pass een array terug aan index voor de dropdown net als bij het aanmaken.
+            ]);
+        }
+
+    }
+
+
     #[Route('/loan/delete/{id}', name: 'app_loan_delete')]
     public function delete(Loan $loan, EntityManagerInterface $em): Response {
 
@@ -70,7 +106,7 @@ class LoanController extends AbstractController
 
         $em->remove($loan);
         $em->flush();
-        return new Response("Uitlening is verwijderd");
+        return $this->redirectToRoute('app_loan_list');
 
     }
 

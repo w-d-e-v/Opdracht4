@@ -16,6 +16,7 @@
             <th scope="col">Boek</th>
             <th scope="col">Klant</th>
             <th scope="col">Uitleenmoment</th>
+            <th scope="col">Bewerken</th>
             <th scope="col">Verwijderen</th>
         </tr>
         </thead>
@@ -24,6 +25,15 @@
                 <td> {{ l.book.title }} </td>
                 <td> {{ l.customer.name }}</td>
                 <td> {{ l.stringedDate }} </td> <!-- niet het object maar een string :) -->
+
+                <td>
+                    <form action="/loan/update/{{ l.id }}">
+
+                        <button type="submit" class="btn btn-warning btn-sm">Bewerken</button>
+
+                    </form>
+                </td>
+
                 <td>
                     <form method="post" action="/loan/delete/{{ l.id }}">
 

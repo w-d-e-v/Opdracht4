@@ -33,7 +33,7 @@ class CustomerController extends AbstractController
         $em->persist($customer);
         $em->flush(); //en doorspoelen maar
 
-        return new Response("Klant " . $customer->getName() . " is aangemaakt");
+        return $this->redirectToRoute('app_customer_list');
     }
 
     #[Route('/customer/list', name: 'app_customer_list')]
@@ -44,6 +44,34 @@ class CustomerController extends AbstractController
         ]);
     }
 
+    #[Route('/customer/update/{id}', name: 'app_customer_update')]
+    public function update(Request $request, EntityManagerInterface $em, $id): Response
+    {
+        $customer = $em->getRepository(Customer::class)->find($id);
+
+
+        if ($request->isMethod('post')) { //alleen als er wat gepost is willen we Doctrine gebruiken
+
+            $name = $request->request->get('name');
+            $address = $request->request->get('address');
+
+            $customer->setName($name);
+            $customer->setAddress($address);
+
+            $em->persist($customer);
+            $em->flush();
+
+            return $this->redirectToRoute('app_customer_list');
+
+        } else {
+            return $this->render('customer/update.html.twig', [ //als dat niet zo is moet twig een array terugkrijgen.
+                'customer' => $customer,
+            ]);
+        }
+
+    }
+
+
     #[Route('/customer/delete/{id}', name: 'app_customer_delete')]
     public function delete(Customer $customer, EntityManagerInterface $em): Response {
 
@@ -51,7 +79,7 @@ class CustomerController extends AbstractController
 
         $em->remove($customer);
         $em->flush();
-        return new Response("Klant " . $customer->getName() . " is verwijderd");
+        return $this->redirectToRoute('app_customer_list');
 
     }
 

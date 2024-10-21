@@ -15,6 +15,7 @@
         <tr>
             <th scope="col">Naam</th>
             <th scope="col">Adres</th>
+            <th scope="col">Bewerken</th>
             <th scope="col">Verwijderen</th>
         </tr>
         </thead>
@@ -27,6 +28,15 @@
                 <td>
                     {{ c.address }}
                 </td>
+
+                <td>
+                    <form action="/customer/update/{{ c.id }}">
+
+                        <button type="submit" class="btn btn-warning btn-sm">Bewerken</button>
+
+                    </form>
+                </td>
+
 
                 <td>
                     <form method="post" action="/customer/delete/{{ c.id }}">
